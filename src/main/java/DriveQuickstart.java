@@ -99,15 +99,15 @@ public class DriveQuickstart {
         if (files == null || files.isEmpty()) {
             System.out.println("No files found.");
         } else {
-            File dirImagenes = null;
+            String dirImagenes = null;
             System.out.println("Files:");
             for (File file : files) {
                 System.out.printf("%s (%s)\n", file.getName(), file.getId());
-                dirImagenes = file;
+                dirImagenes = file.getId();
             }
-            // enumero las imagenes dentro de ese directorio
+            // busco la imagen en el directorio
             FileList resultImagenes = service.files().list()
-                    .setQ("'1-U2ivPVOafr9GvZUzPcbLW77URms8TN1' in parents")
+                    .setQ("name contains 'bbyoda' and parents in '"+dirImagenes+"'")
                     .setSpaces("drive")
                     .setFields("nextPageToken, files(id, name)")
                     .execute();
